@@ -70,7 +70,6 @@ if !has('gui_running')
   set t_Co=256
 endif
 nnoremap ; :
-nnoremap <Leader>b :buffers<CR>:buffer<Space>
 
 " VIM PLUG
 call plug#begin()
