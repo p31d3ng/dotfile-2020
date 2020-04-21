@@ -47,6 +47,10 @@ noremap <C-w><C-j> <C-w>J
 noremap <C-w><C-k> <C-w>K
 noremap <C-w><C-l> <C-w>L
 
+" ================ Search words ======================
+vnoremap // y/\V<c-r>=escape(@", '/\')<cr><cr>ggn
+nnoremap * *ggn
+
 " ================ VIM Plug ======================
 call plug#begin('~/.config/nvim/plugged')
 Plug 'preservim/nerdtree'
@@ -118,32 +122,69 @@ xmap <leader>f  <Plug>(coc-format-selected)
 " provide custom statusline: lightline.vim, vim-airline.
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
+" ================ coc-extensions ======================
+let g:coc_global_extensions = [
+  \'coc-css',
+  \'coc-eslint',
+  \'coc-git',
+  \'coc-html',
+  \'coc-json',
+  \'coc-lists',
+  \'coc-markdownlint',
+  \'coc-python',
+  \'coc-rust-analyzer',
+  \'coc-tsserver',
+  \'coc-yaml',
+  \'coc-yank',
+\ ]
+nnoremap <silent> <leader>y  :<c-u>CocList -A --normal yank<cr>
 " Mappings using CoCList:
 " Show all diagnostics.
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>a  :<c-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader>e  :<c-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent> <leader>c  :<c-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <leader>o  :<c-u>CocList outline<cr>
 " Search workspace symbols.
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <leader>s  :<c-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent> <leader>j  :<c-u>CocNext<cr>
 " Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent> <leader>k  :<c-u>CocPrev<cr>
 " Resume latest coc list.
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent> <leader>p  :<c-u>CocListResume<cr>
 " Show MRU list
-nnoremap <silent> <space>r  :<C-u>CocList mru<cr>
+nnoremap <silent> <leader>r  :<c-u>CocList mru<cr>
+" Show Files list
+nnoremap <silent> <leader>f  :<c-u>CocList files<cr>
+" Grep using ag
+vnoremap <leader>g :<c-u>call <SID>GrepFromSelected(visualmode())<cr>
+nnoremap <leader>g :<c-u>set operatorfunc=<SID>GrepFromSelected<cr>g@
+
+function! s:GrepFromSelected(type)
+  let saved_unnamed_register = @@
+  if a:type ==# 'v'
+    normal! `<v`>y
+  elseif a:type ==# 'char'
+    normal! `[v`]y
+  else
+    return
+  endif
+  let word = substitute(@@, '\n$', '', 'g')
+  let word = escape(word, '| ')
+  let @@ = saved_unnamed_register
+  execute 'CocList grep '.word
+endfunction
+
 
 " ================ lightline ======================
 let g:lightline = {
   \ 'colorscheme': 'Tomorrow_Night',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'readonly', 'filename', 'modified', 'coc_error', 'coc_warning', 'coc_hint', 'coc_info' ] ],
+  \             [ 'readonly', 'filename', 'git', 'modified', 'coc_error', 'coc_warning', 'coc_hint', 'coc_info' ] ],
   \   'right': [ [ 'lineinfo',  ],
   \              [ 'percent' ],
   \              [ 'fileformat', 'fileencoding', 'filetype'] ]
