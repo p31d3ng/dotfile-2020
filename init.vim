@@ -3,7 +3,6 @@ set termguicolors
 set nobackup
 set nowritebackup
 syntax enable
-colorscheme onedark
 
 let mapleader="\<space>"
 
@@ -61,6 +60,9 @@ Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'joshdick/onedark.vim'
 call plug#end()
+
+" ================ colorscheme ======================
+colorscheme onedark
 
 " ================ NerdTree ======================
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
