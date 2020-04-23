@@ -54,7 +54,6 @@ nnoremap * *ggn
 " ================ VIM Plug ======================
 call plug#begin('~/.config/nvim/plugged')
 Plug 'preservim/nerdtree'
-Plug 'hhvm/vim-hack'
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
