@@ -12,6 +12,7 @@ nnoremap H ^
 nnoremap L $
 nnoremap <leader>ev :vs $MYVIMRC<cr><c-w>L
 nnoremap <leader>sv :so $MYVIMRC<cr>
+nnoremap <c-;> $a;<esc>j0
 
 " ================ Clipboard ======================
 let g:clipboard = {
@@ -48,8 +49,8 @@ noremap <C-w><C-k> <C-w>K
 noremap <C-w><C-l> <C-w>L
 
 " ================ Search words ======================
-vnoremap // y/\V<c-r>=escape(@", '/\')<cr><cr>ggn
-nnoremap * *ggn
+vnoremap // y/\V<c-r>=escape(@", '/\')<cr><cr>N
+nnoremap * *N
 
 " ================ VIM Plug ======================
 call plug#begin('~/.config/nvim/plugged')
@@ -134,7 +135,6 @@ let g:coc_global_extensions = [
   \'coc-json',
   \'coc-lists',
   \'coc-markdownlint',
-  \'coc-pairs',
   \'coc-python',
   \'coc-rust-analyzer',
   \'coc-tsserver',
