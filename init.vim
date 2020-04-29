@@ -12,7 +12,8 @@ nnoremap H ^
 nnoremap L $
 nnoremap <leader>ev :vs $MYVIMRC<cr><c-w>L
 nnoremap <leader>sv :so $MYVIMRC<cr>
-nnoremap <c-;> $a;<esc>j0
+nnoremap <c-l> A;<esc>j0
+inoremap <c-l> <esc>A;
 
 " ================ Clipboard ======================
 let g:clipboard = {
