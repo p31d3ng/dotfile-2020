@@ -60,6 +60,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'joshdick/onedark.vim'
+Plugin 'cespare/vim-toml'
 call plug#end()
 
 " ================ colorscheme ======================
