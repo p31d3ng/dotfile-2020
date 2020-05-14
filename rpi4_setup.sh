@@ -4,7 +4,7 @@ set -x
 
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt install -y git neovim fish gcc jq ripgrep net-tools tmux vim mosh
+sudo apt install -y git neovim fish gcc jq ripgrep net-tools tmux vim mosh fzf
 
 # pre-setup
 sudo hostnamectl set-hostname rpi4b
@@ -49,3 +49,6 @@ mv /tmp/coc-settings.json ~/.config/nvim/
 ## PlugInstall
 nvim +PlugInstall +qa
 
+# fisher
+## fisher add jorgebucaran/fish-nvm
+## fisher add jethrokuan/fzf
