@@ -4,7 +4,7 @@ set -x
 
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt install -y git neovim fish gcc jq ripgrep net-tools tmux vim
+sudo apt install -y git neovim fish gcc jq ripgrep net-tools tmux vim mosh
 
 # pre-setup
 sudo hostnamectl set-hostname rpi4b
