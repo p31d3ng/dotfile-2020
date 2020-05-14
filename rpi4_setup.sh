@@ -28,6 +28,9 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source ~/.cargo/env
 rustup component add rls rust-analysis rust-src
 
+# oh-my-fish
+curl -L https://get.oh-my.fish | fish
+
 # nvim
 ## 1) vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
