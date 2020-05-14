@@ -28,8 +28,8 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source ~/.cargo/env
 rustup component add rls rust-analysis rust-src
 
-# oh-my-fish
-curl -L https://get.oh-my.fish | fish
+# fisher
+curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
 
 # nvim
 ## 1) vim-plug
