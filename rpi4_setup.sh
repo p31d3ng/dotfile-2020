@@ -7,7 +7,7 @@ sudo apt upgrade -y
 sudo apt install -y git neovim fish gcc jq ripgrep net-tools tmux vim mosh fzf
 
 # pre-setup
-sudo hostnamectl set-hostname rpi4b
+# sudo hostnamectl set-hostname rpi4b
 mkdir -p ~/.local/bin
 export PATH="$HOME/.local/bin:$PATH"
 source ~/.bashrc
