@@ -1,5 +1,5 @@
 set hidden
-set termguicolors
+" set termguicolors
 set nobackup
 set nowritebackup
 syntax enable
