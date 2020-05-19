@@ -280,10 +280,10 @@ endfunction
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " ================ color ======================
-" hi Whitespace ctermfg=238 guifg=#424450 guibg=NONE ctermbg=NONE
-" hi VertSplit  ctermfg=Black  guifg=Black guibg=NONE ctermbg=NONE
-" hi LineNr ctermbg=NONE guibg=NONE
-" hi SignColumn ctermfg=187 ctermbg=NONE guifg=#ebdbb2 guibg=NONE guisp=NONE cterm=NONE gui=NONE
-" hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
-" hi default CocHighlightText  guibg=#725972 ctermbg=96
-" hi CocWarningSign  ctermfg=32 ctermbg=NONE guifg=#0087d7 guibg=NONE
+hi Whitespace ctermfg=238 guifg=#424450 guibg=NONE ctermbg=NONE
+hi VertSplit  ctermfg=Black  guifg=Black guibg=NONE ctermbg=NONE
+hi LineNr ctermbg=NONE guibg=NONE
+hi SignColumn ctermfg=187 ctermbg=NONE guifg=#ebdbb2 guibg=NONE guisp=NONE cterm=NONE gui=NONE
+hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
+hi default CocHighlightText  guibg=#725972 ctermbg=96
+hi CocWarningSign  ctermfg=32 ctermbg=NONE guifg=#0087d7 guibg=NONE

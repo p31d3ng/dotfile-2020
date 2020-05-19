@@ -31,6 +31,10 @@ set softtabstop=2
 set tabstop=2
 set expandtab
 
+" ================ Case ======================
+set ignorecase
+set smartcase
+
 " ================ Number Col ======================
 set number
 highlight LineNr ctermfg=grey ctermbg=black
