@@ -204,12 +204,12 @@ endfunction
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc 
-" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " Toggle vista sidebar
 nnoremap <silent> <space>v  :<C-u>Vista!!<cr>
 " Toggle vista symbol list
-nnoremap <silent> <space>l  :<C-u>Vista finder<cr>
+nnoremap <silent> <space>l  :<C-u>Vista finder coc<cr>
 
 
 " ================ lightline ======================
@@ -217,8 +217,8 @@ let g:lightline = {
   \ 'colorscheme': 'Tomorrow_Night',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'readonly', 'filename', 'git', 'modified' ],
-  \             [ 'method' ],
+  \             [ 'readonly', 'filename', 'method' ],
+  \             [ 'git', 'modified' ],
   \             ['coc_error', 'coc_warning', 'coc_hint', 'coc_info' ] ],
   \   'right': [ [ 'lineinfo',  ],
   \              [ 'percent' ],
