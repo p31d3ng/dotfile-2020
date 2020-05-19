@@ -70,7 +70,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 call plug#end()
 
 " ================ colorscheme ======================
-colorscheme onedark
+:silent! colorscheme onedark
 
 " ================ NerdTree ======================
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
@@ -190,7 +190,7 @@ function! s:GrepFromSelected(type)
   execute 'CocList grep '.word
 endfunction
 
-" ================ vista ======================
+" ================ Vista ======================
 let g:vista#renderer#enable_icon = 0
 function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
@@ -213,7 +213,9 @@ let g:lightline = {
   \ 'colorscheme': 'Tomorrow_Night',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'readonly', 'filename', 'git', 'modified', 'coc_error', 'coc_warning', 'coc_hint', 'coc_info' ] ],
+  \             [ 'readonly', 'filename', 'git', 'modified' ],
+  \             [ 'method' ],
+  \             ['coc_error', 'coc_warning', 'coc_hint', 'coc_info' ] ],
   \   'right': [ [ 'lineinfo',  ],
   \              [ 'percent' ],
   \              [ 'fileformat', 'fileencoding', 'filetype'] ]
@@ -224,6 +226,9 @@ let g:lightline = {
   \   'coc_info'         : 'LightlineCocInfos',
   \   'coc_hint'         : 'LightlineCocHints',
   \   'coc_fix'          : 'LightlineCocFixes',
+  \ },
+  \ 'component_function': {
+  \   'method': 'NearestMethodOrFunction'
   \ },
 \ }
 
