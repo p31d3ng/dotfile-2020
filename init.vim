@@ -200,7 +200,7 @@ endfunction
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc 
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " Toggle vista sidebar
 nnoremap <silent> <space>v  :<C-u>Vista coc<cr>
