@@ -144,7 +144,7 @@ let g:coc_global_extensions = [
   \'coc-lists',
   \'coc-markdownlint',
   \'coc-python',
-  \'coc-rust-analyzer',
+  \'coc-rls',
   \'coc-tsserver',
   \'coc-yaml',
   \'coc-yank',
@@ -192,6 +192,7 @@ endfunction
 
 " ================ Vista ======================
 let g:vista#renderer#enable_icon = 0
+let g:vista_default_executive = 'coc'
 
 function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
@@ -206,9 +207,9 @@ endfunction
 " autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " Toggle vista sidebar
-nnoremap <silent> <space>v  :<C-u>Vista coc<cr>
+nnoremap <silent> <space>v  :<C-u>Vista!!<cr>
 " Toggle vista symbol list
-nnoremap <silent> <space>l  :<C-u>Vista finder coc<cr>
+nnoremap <silent> <space>l  :<C-u>Vista finder<cr>
 
 
 " ================ lightline ======================

@@ -5,6 +5,5 @@
 		"<C-n>": "normal:j",
 		"<C-p>": "normal:k",
 		"<C-t>": "action:tabe"
-	},
-  "rust-analyzer.serverPath": "~/.local/bin/rust-analyzer"
+	}
 }
