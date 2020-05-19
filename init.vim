@@ -39,6 +39,10 @@ set softtabstop=2
 set tabstop=2
 set expandtab
 
+" ================ Case ======================
+set ignorecase
+set smartcase
+
 " ================ Number Col ======================
 set number
 highlight LineNr ctermfg=grey ctermbg=black
@@ -61,6 +65,8 @@ Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'joshdick/onedark.vim'
 Plug 'cespare/vim-toml'
+Plug 'liuchengxu/vista.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 call plug#end()
 
 " ================ colorscheme ======================
@@ -183,6 +189,23 @@ function! s:GrepFromSelected(type)
   let @@ = saved_unnamed_register
   execute 'CocList grep '.word
 endfunction
+
+" ================ vista ======================
+let g:vista#renderer#enable_icon = 0
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc 
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+" Toggle vista sidebar
+nnoremap <silent> <space>v  :<C-u>Vista coc<cr>
+" Toggle vista symbol list
+nnoremap <silent> <space>l  :<C-u>Vista finder coc<cr>
 
 
 " ================ lightline ======================
