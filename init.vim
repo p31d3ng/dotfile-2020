@@ -219,7 +219,7 @@ let g:lightline = {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'readonly', 'filename', 'method' ],
   \             [ 'git', 'modified' ],
-  \             ['coc_error', 'coc_warning', 'coc_hint', 'coc_info' ] ],
+  \             [ 'coc_error', 'coc_warning', 'coc_hint', 'coc_info' ] ],
   \   'right': [ [ 'lineinfo',  ],
   \              [ 'percent' ],
   \              [ 'fileformat', 'fileencoding', 'filetype'] ]
