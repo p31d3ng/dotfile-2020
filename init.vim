@@ -45,10 +45,11 @@ set smartcase
 
 " ================ Number Col ======================
 set number
-set relativenum
+set relativenumber
 highlight LineNr ctermfg=grey ctermbg=black
 highlight CursorLineNr gui=bold guifg=DarkRed guibg=#c0d0e0
 
+" ================ Window Movement ======================
 noremap <C-w><C-h> <C-w>H
 noremap <C-w><C-j> <C-w>J
 noremap <C-w><C-k> <C-w>K
