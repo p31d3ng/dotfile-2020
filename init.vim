@@ -45,6 +45,7 @@ set smartcase
 
 " ================ Number Col ======================
 set number
+set relativenum
 highlight LineNr ctermfg=grey ctermbg=black
 highlight CursorLineNr gui=bold guifg=DarkRed guibg=#c0d0e0
 
