@@ -6,7 +6,6 @@
 		"<C-p>": "normal:k",
 		"<C-t>": "action:tabe"
 	},
-  "rust-analyzer.inlayHints.chainingHints": false,
   "rust-analyzer.serverPath": "/home/p31d3ng/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer",
   "rust-analyzer.checkOnSave.enable": true
 }
