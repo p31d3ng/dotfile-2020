@@ -5,5 +5,7 @@
 		"<C-n>": "normal:j",
 		"<C-p>": "normal:k",
 		"<C-t>": "action:tabe"
-	}
+	},
+  "rust-analyzer.inlayHints.chainingHints": false,
+  "rust-analyzer.checkOnSave.enable": true
 }
