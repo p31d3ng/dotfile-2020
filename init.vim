@@ -4,7 +4,7 @@ set nobackup
 set nowritebackup
 syntax enable
 
-let mapleader="\<space>"
+let mapleader=","
 
 " ================ Keymaps ======================
 nnoremap <leader>, :noh<cr>
