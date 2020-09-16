@@ -15,40 +15,6 @@ nnoremap <leader>sv :so $MYVIMRC<cr>
 nnoremap <c-l> A;<esc>
 inoremap <c-l> <esc>A;
 
-" ================ Clipboard ======================
-let g:clipboard = {
-          \   'name': 'tmuxClipboard',
-          \   'copy': {
-          \      '+': 'tmux load-buffer -',
-          \      '*': 'tmux load-buffer -',
-          \    },
-          \   'paste': {
-          \      '+': 'tmux save-buffer -',
-          \      '*': 'tmux save-buffer -',
-          \   },
-          \   'cache_enabled': 1,
-          \ }
-set clipboard+=unnamedplus
-
-" ================ Indentation ======================
-set autoindent
-set smartindent
-set smarttab
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
-set expandtab
-
-" ================ Case ======================
-set ignorecase
-set smartcase
-
-" ================ Number Col ======================
-set number
-set relativenumber
-highlight LineNr ctermfg=grey ctermbg=black
-highlight CursorLineNr gui=bold guifg=DarkRed guibg=#c0d0e0
-
 " ================ Window Movement ======================
 noremap <C-w><C-h> <C-w>H
 noremap <C-w><C-j> <C-w>J
@@ -59,233 +25,280 @@ noremap <C-w><C-l> <C-w>L
 vnoremap // y/\V<c-r>=escape(@", '/\')<cr><cr>N
 nnoremap * *N
 
-" ================ VIM Plug ======================
-call plug#begin('~/.config/nvim/plugged')
-Plug 'preservim/nerdtree'
-Plug 'itchyny/lightline.vim'
-Plug 'mhinz/vim-startify'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'joshdick/onedark.vim'
-Plug 'cespare/vim-toml'
-Plug 'liuchengxu/vista.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-call plug#end()
+if exists('g:vscode')
+  nnoremap <leader>n <Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>
+  nnoremap <leader>m <Cmd>call VSCodeNotify('workbench.files.action.showActiveFileInExplorer')<CR>
+  nnoremap <leader>r <Cmd>call VSCodeNotify('workbench.action.showAllEditorsByMostRecentlyUsed')<CR>
+  nnoremap <leader>s <Cmd>call VSCodeNotify('workbench.action.gotoSymbol')<CR>
+  nnoremap <leader>f <Cmd>call VSCodeNotify('omni-search:quick-search')<CR>
+  nnoremap gy <Cmd>call VSCodeNotify('editor.action.peekTypeDefinition')<CR>
+  nnoremap gi <Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>
+  nnoremap gr <Cmd>call VSCodeNotify('editor.action.referenceSearch.trigger')<CR>
+  nnoremap <C-w><C-w> <Cmd>call VSCodeNotify('workbench.action.focusNextGroup')<CR>
+else
 
-" ================ colorscheme ======================
-:silent! colorscheme onedark
+  " ================ Clipboard ======================
+  let g:clipboard = {
+            \   'name': 'tmuxClipboard',
+            \   'copy': {
+            \      '+': 'tmux load-buffer -',
+            \      '*': 'tmux load-buffer -',
+            \    },
+            \   'paste': {
+            \      '+': 'tmux save-buffer -',
+            \      '*': 'tmux save-buffer -',
+            \   },
+            \   'cache_enabled': 1,
+            \ }
+  set clipboard+=unnamedplus
 
-" ================ NerdTree ======================
-nnoremap <silent> <leader>n :NERDTreeToggle<CR>
-nnoremap <silent> <leader>m :NERDTreeFind<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let NERDTreeQuitOnOpen = 1
-let NERDTreeAutoDeleteBuffer = 1
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
+  " ================ Indentation ======================
+  set autoindent
+  set smartindent
+  set smarttab
+  set shiftwidth=2
+  set softtabstop=2
+  set tabstop=2
+  set expandtab
 
-" ================ coc-nvim ======================
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
+  " ================ Case ======================
+  set ignorecase
+  set smartcase
 
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
+  " ================ Number Col ======================
+  set number
+  set relativenumber
+  highlight LineNr ctermfg=grey ctermbg=black
+  highlight CursorLineNr gui=bold guifg=DarkRed guibg=#c0d0e0
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-set signcolumn=yes
+  " ================ VIM Plug ======================
+  call plug#begin('~/.config/nvim/plugged')
+  Plug 'preservim/nerdtree'
+  Plug 'itchyny/lightline.vim'
+  Plug 'mhinz/vim-startify'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'joshdick/onedark.vim'
+  Plug 'cespare/vim-toml'
+  Plug 'liuchengxu/vista.vim'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  call plug#end()
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+  " ================ colorscheme ======================
+  :silent! colorscheme onedark
 
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+  " ================ NerdTree ======================
+  nnoremap <silent> <leader>n :NERDTreeToggle<CR>
+  nnoremap <silent> <leader>m :NERDTreeFind<CR>
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+  let NERDTreeQuitOnOpen = 1
+  let NERDTreeAutoDeleteBuffer = 1
+  let NERDTreeMinimalUI = 1
+  let NERDTreeDirArrows = 1
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+  " ================ coc-nvim ======================
+  " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+  " delays and poor user experience.
+  set updatetime=300
 
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+  " Don't pass messages to |ins-completion-menu|.
+  set shortmess+=c
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+  " Always show the signcolumn, otherwise it would shift the text each time
+  " diagnostics appear/become resolved.
+  set signcolumn=yes
 
-" Symbol renaming.
-" nmap <leader>rn <Plug>(coc-rename)
+  " Use tab for trigger completion with characters ahead and navigate.
+  " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+  " other plugin before putting this into your config.
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
 
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
+  " Use <c-space> to trigger completion.
+  inoremap <silent><expr> <c-space> coc#refresh()
 
-" Formatting the whole buffer
-nnoremap <leader>fm :call CocAction('format')<cr>
+  " Use `[g` and `]g` to navigate diagnostics
+  nmap <silent> [g <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+  " GoTo code navigation.
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
 
-" ================ coc-extensions ======================
-let g:coc_global_extensions = [
-  \'coc-css',
-  \'coc-eslint',
-  \'coc-git',
-  \'coc-html',
-  \'coc-json',
-  \'coc-lists',
-  \'coc-markdownlint',
-  \'coc-python',
-  \'coc-rust-analyzer',
-  \'coc-tsserver',
-  \'coc-yaml',
-  \'coc-yank',
-\ ]
-nnoremap <silent> <leader>y  :<c-u>CocList -A --normal yank<cr>
-" Mappings using CoCList:
-" Show all diagnostics.
-nnoremap <silent> <leader>a  :<c-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent> <leader>e  :<c-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent> <leader>c  :<c-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent> <leader>o  :<c-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent> <leader>s  :<c-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <leader>j  :<c-u>CocNext<cr>
-" Do default action for previous item.
-nnoremap <silent> <leader>k  :<c-u>CocPrev<cr>
-" Resume latest coc list.
-nnoremap <silent> <leader>p  :<c-u>CocListResume<cr>
-" Show MRU list
-nnoremap <silent> <leader>r  :<c-u>CocList mru<cr>
-" Show Files list
-nnoremap <silent> <leader>f  :<c-u>CocList files<cr>
-" Grep using ag
-vnoremap <leader>g :<c-u>call <SID>GrepFromSelected(visualmode())<cr>
-nnoremap <leader>g :<c-u>set operatorfunc=<SID>GrepFromSelected<cr>g@
+  " Highlight the symbol and its references when holding the cursor.
+  autocmd CursorHold * silent call CocActionAsync('highlight')
 
-function! s:GrepFromSelected(type)
-  let saved_unnamed_register = @@
-  if a:type ==# 'v'
-    normal! `<v`>y
-  elseif a:type ==# 'char'
-    normal! `[v`]y
-  else
-    return
-  endif
-  let word = substitute(@@, '\n$', '', 'g')
-  let word = escape(word, '| ')
-  let @@ = saved_unnamed_register
-  execute 'CocList grep '.word
-endfunction
+  " Symbol renaming.
+  " nmap <leader>rn <Plug>(coc-rename)
 
-" ================ Vista ======================
-let g:vista#renderer#enable_icon = 0
-let g:vista_default_executive = 'coc'
+  " Formatting selected code.
+  xmap <leader>f  <Plug>(coc-format-selected)
 
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
+  " Formatting the whole buffer
+  nnoremap <leader>fm :call CocAction('format')<cr>
 
-" set statusline+=%{NearestMethodOrFunction()}
+  " Add (Neo)Vim's native statusline support.
+  " NOTE: Please see `:h coc-status` for integrations with external plugins that
+  " provide custom statusline: lightline.vim, vim-airline.
+  " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" By default vista.vim never run if you don't call it explicitly.
-"
-" If you want to show the nearest function in your statusline automatically,
-" you can add the following line to your vimrc 
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+  " ================ coc-extensions ======================
+  let g:coc_global_extensions = [
+    \'coc-css',
+    \'coc-eslint',
+    \'coc-git',
+    \'coc-html',
+    \'coc-json',
+    \'coc-lists',
+    \'coc-markdownlint',
+    \'coc-python',
+    \'coc-rust-analyzer',
+    \'coc-tsserver',
+    \'coc-yaml',
+    \'coc-yank',
+  \ ]
+  nnoremap <silent> <leader>y  :<c-u>CocList -A --normal yank<cr>
+  " Mappings using CoCList:
+  " Show all diagnostics.
+  nnoremap <silent> <leader>a  :<c-u>CocList diagnostics<cr>
+  " Manage extensions.
+  nnoremap <silent> <leader>e  :<c-u>CocList extensions<cr>
+  " Show commands.
+  nnoremap <silent> <leader>c  :<c-u>CocList commands<cr>
+  " Find symbol of current document.
+  nnoremap <silent> <leader>o  :<c-u>CocList outline<cr>
+  " Search workspace symbols.
+  nnoremap <silent> <leader>s  :<c-u>CocList -I symbols<cr>
+  " Do default action for next item.
+  nnoremap <silent> <leader>j  :<c-u>CocNext<cr>
+  " Do default action for previous item.
+  nnoremap <silent> <leader>k  :<c-u>CocPrev<cr>
+  " Resume latest coc list.
+  nnoremap <silent> <leader>p  :<c-u>CocListResume<cr>
+  " Show MRU list
+  nnoremap <silent> <leader>r  :<c-u>CocList mru<cr>
+  " Show Files list
+  nnoremap <silent> <leader>f  :<c-u>CocList files<cr>
+  " Grep using ag
+  vnoremap <leader>g :<c-u>call <SID>GrepFromSelected(visualmode())<cr>
+  nnoremap <leader>g :<c-u>set operatorfunc=<SID>GrepFromSelected<cr>g@
 
-" Toggle vista sidebar
-nnoremap <silent> <space>v  :<C-u>Vista!!<cr>
-" Toggle vista symbol list
-nnoremap <silent> <space>l  :<C-u>Vista finder coc<cr>
+  function! s:GrepFromSelected(type)
+    let saved_unnamed_register = @@
+    if a:type ==# 'v'
+      normal! `<v`>y
+    elseif a:type ==# 'char'
+      normal! `[v`]y
+    else
+      return
+    endif
+    let word = substitute(@@, '\n$', '', 'g')
+    let word = escape(word, '| ')
+    let @@ = saved_unnamed_register
+    execute 'CocList grep '.word
+  endfunction
+
+  " ================ Vista ======================
+  let g:vista#renderer#enable_icon = 0
+  let g:vista_default_executive = 'coc'
+
+  function! NearestMethodOrFunction() abort
+    return get(b:, 'vista_nearest_method_or_function', '')
+  endfunction
+
+  " set statusline+=%{NearestMethodOrFunction()}
+
+  " By default vista.vim never run if you don't call it explicitly.
+  "
+  " If you want to show the nearest function in your statusline automatically,
+  " you can add the following line to your vimrc 
+  autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+  " Toggle vista sidebar
+  nnoremap <silent> <space>v  :<C-u>Vista!!<cr>
+  " Toggle vista symbol list
+  nnoremap <silent> <space>l  :<C-u>Vista finder coc<cr>
 
 
-" ================ lightline ======================
-let g:lightline = {
-  \ 'colorscheme': 'Tomorrow_Night',
-  \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'readonly', 'filename', 'method' ],
-  \             [ 'git', 'modified' ],
-  \             [ 'coc_error', 'coc_warning', 'coc_hint', 'coc_info' ] ],
-  \   'right': [ [ 'lineinfo',  ],
-  \              [ 'percent' ],
-  \              [ 'fileformat', 'fileencoding', 'filetype'] ]
-  \ },
-  \ 'component_expand': {
-  \   'coc_error'        : 'LightlineCocErrors',
-  \   'coc_warning'      : 'LightlineCocWarnings',
-  \   'coc_info'         : 'LightlineCocInfos',
-  \   'coc_hint'         : 'LightlineCocHints',
-  \   'coc_fix'          : 'LightlineCocFixes',
-  \ },
-  \ 'component_function': {
-  \   'method': 'NearestMethodOrFunction'
-  \ },
-\ }
+  " ================ lightline ======================
+  let g:lightline = {
+    \ 'colorscheme': 'Tomorrow_Night',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'readonly', 'filename', 'method' ],
+    \             [ 'git', 'modified' ],
+    \             [ 'coc_error', 'coc_warning', 'coc_hint', 'coc_info' ] ],
+    \   'right': [ [ 'lineinfo',  ],
+    \              [ 'percent' ],
+    \              [ 'fileformat', 'fileencoding', 'filetype'] ]
+    \ },
+    \ 'component_expand': {
+    \   'coc_error'        : 'LightlineCocErrors',
+    \   'coc_warning'      : 'LightlineCocWarnings',
+    \   'coc_info'         : 'LightlineCocInfos',
+    \   'coc_hint'         : 'LightlineCocHints',
+    \   'coc_fix'          : 'LightlineCocFixes',
+    \ },
+    \ 'component_function': {
+    \   'method': 'NearestMethodOrFunction'
+    \ },
+  \ }
 
-let g:lightline.component_type = {
-\   'coc_error'        : 'error',
-\   'coc_warning'      : 'warning',
-\   'coc_info'         : 'tabsel',
-\   'coc_hint'         : 'middle',
-\   'coc_fix'          : 'middle',
-\ }
+  let g:lightline.component_type = {
+  \   'coc_error'        : 'error',
+  \   'coc_warning'      : 'warning',
+  \   'coc_info'         : 'tabsel',
+  \   'coc_hint'         : 'middle',
+  \   'coc_fix'          : 'middle',
+  \ }
 
-function! s:lightline_coc_diagnostic(kind, sign) abort
-  let info = get(b:, 'coc_diagnostic_info', 0)
-  if empty(info) || get(info, a:kind, 0) == 0
-    return ''
-  endif
-  try
-    let s = g:coc_user_config['diagnostic'][a:sign . 'Sign']
-  catch
-    let s = ''
-  endtry
-  return printf('%s %d', s, info[a:kind])
-endfunction
+  function! s:lightline_coc_diagnostic(kind, sign) abort
+    let info = get(b:, 'coc_diagnostic_info', 0)
+    if empty(info) || get(info, a:kind, 0) == 0
+      return ''
+    endif
+    try
+      let s = g:coc_user_config['diagnostic'][a:sign . 'Sign']
+    catch
+      let s = ''
+    endtry
+    return printf('%s %d', s, info[a:kind])
+  endfunction
 
-function! LightlineCocErrors() abort
-  return s:lightline_coc_diagnostic('error', 'error')
-endfunction
+  function! LightlineCocErrors() abort
+    return s:lightline_coc_diagnostic('error', 'error')
+  endfunction
 
-function! LightlineCocWarnings() abort
-  return s:lightline_coc_diagnostic('warning', 'warning')
-endfunction
+  function! LightlineCocWarnings() abort
+    return s:lightline_coc_diagnostic('warning', 'warning')
+  endfunction
 
-function! LightlineCocInfos() abort
-  return s:lightline_coc_diagnostic('information', 'info')
-endfunction
+  function! LightlineCocInfos() abort
+    return s:lightline_coc_diagnostic('information', 'info')
+  endfunction
 
-function! LightlineCocHints() abort
-  return s:lightline_coc_diagnostic('hints', 'hint')
-endfunction
-\ }
+  function! LightlineCocHints() abort
+    return s:lightline_coc_diagnostic('hints', 'hint')
+  endfunction
+  \ }
 
-" Use auocmd to force lightline update.
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+  " Use auocmd to force lightline update.
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
-" ================ color ======================
-hi Whitespace ctermfg=238 guifg=#424450 guibg=NONE ctermbg=NONE
-hi VertSplit  ctermfg=Black  guifg=Black guibg=NONE ctermbg=NONE
-hi LineNr ctermbg=NONE guibg=NONE
-hi SignColumn ctermfg=187 ctermbg=NONE guifg=#ebdbb2 guibg=NONE guisp=NONE cterm=NONE gui=NONE
-hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
-hi default CocHighlightText  guibg=#725972 ctermbg=96
-hi CocWarningSign  ctermfg=32 ctermbg=NONE guifg=#0087d7 guibg=NONE
+  " ================ color ======================
+  hi Whitespace ctermfg=238 guifg=#424450 guibg=NONE ctermbg=NONE
+  hi VertSplit  ctermfg=Black  guifg=Black guibg=NONE ctermbg=NONE
+  hi LineNr ctermbg=NONE guibg=NONE
+  hi SignColumn ctermfg=187 ctermbg=NONE guifg=#ebdbb2 guibg=NONE guisp=NONE cterm=NONE gui=NONE
+  hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
+  hi default CocHighlightText  guibg=#725972 ctermbg=96
+  hi CocWarningSign  ctermfg=32 ctermbg=NONE guifg=#0087d7 guibg=NONE
+endif
