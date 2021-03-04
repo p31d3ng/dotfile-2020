@@ -7,5 +7,6 @@
 		"<C-t>": "action:tabe"
 	},
   "diagnostic.checkCurrentLine": true,
-  "rust-analyzer.serverPath": "/home/p31d3ng/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer"
+  "rust-analyzer.serverPath": "/home/p31d3ng/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer",
+  "rust-analyzer.cargo.loadOutDirsFromCheck": true
 }
