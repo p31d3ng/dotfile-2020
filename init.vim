@@ -81,6 +81,9 @@ else
   Plug 'cespare/vim-toml'
   Plug 'liuchengxu/vista.vim'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+  Plug 'antoinemadec/coc-fzf'
+  Plug 'josa42/vim-lightline-coc'
   call plug#end()
 
   " ================ colorscheme ======================
@@ -106,6 +109,9 @@ else
   " Always show the signcolumn, otherwise it would shift the text each time
   " diagnostics appear/become resolved.
   set signcolumn=yes
+  
+  " Put coc-references into floating windows
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
   " Use tab for trigger completion with characters ahead and navigate.
   " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -121,7 +127,7 @@ else
   endfunction
 
   " Use <c-space> to trigger completion.
-  inoremap <silent><expr> <c-space> coc#refresh()
+  inoremap <silent><expr> gc coc#refresh()
 
   " Use `[g` and `]g` to navigate diagnostics
   nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -230,65 +236,19 @@ else
 
   " ================ lightline ======================
   let g:lightline = {
-    \ 'colorscheme': 'Tomorrow_Night',
-    \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'readonly', 'filename', 'method' ],
-    \             [ 'git', 'modified' ],
-    \             [ 'coc_error', 'coc_warning', 'coc_hint', 'coc_info' ] ],
-    \   'right': [ [ 'lineinfo',  ],
-    \              [ 'percent' ],
-    \              [ 'fileformat', 'fileencoding', 'filetype'] ]
-    \ },
-    \ 'component_expand': {
-    \   'coc_error'        : 'LightlineCocErrors',
-    \   'coc_warning'      : 'LightlineCocWarnings',
-    \   'coc_info'         : 'LightlineCocInfos',
-    \   'coc_hint'         : 'LightlineCocHints',
-    \   'coc_fix'          : 'LightlineCocFixes',
-    \ },
-    \ 'component_function': {
-    \   'method': 'NearestMethodOrFunction'
-    \ },
+  \   'active': {
+  \     'left': [ [ 'mode', 'paste' ],
+  \               [ 'readonly', 'filename', 'method' ],
+  \               [ 'git', 'modified' ],
+  \               [ 'coc_error', 'coc_warning', 'coc_hint', 'coc_info', 'coc_status' ] ],
+  \     'right': [ [ 'lineinfo' ],
+  \                [ 'percent' ],
+  \                [ 'fileformat', 'fileencoding', 'filetype'] ]
+  \   }
   \ }
 
-  let g:lightline.component_type = {
-  \   'coc_error'        : 'error',
-  \   'coc_warning'      : 'warning',
-  \   'coc_info'         : 'tabsel',
-  \   'coc_hint'         : 'middle',
-  \   'coc_fix'          : 'middle',
-  \ }
-
-  function! s:lightline_coc_diagnostic(kind, sign) abort
-    let info = get(b:, 'coc_diagnostic_info', 0)
-    if empty(info) || get(info, a:kind, 0) == 0
-      return ''
-    endif
-    try
-      let s = g:coc_user_config['diagnostic'][a:sign . 'Sign']
-    catch
-      let s = ''
-    endtry
-    return printf('%s %d', s, info[a:kind])
-  endfunction
-
-  function! LightlineCocErrors() abort
-    return s:lightline_coc_diagnostic('error', 'error')
-  endfunction
-
-  function! LightlineCocWarnings() abort
-    return s:lightline_coc_diagnostic('warning', 'warning')
-  endfunction
-
-  function! LightlineCocInfos() abort
-    return s:lightline_coc_diagnostic('information', 'info')
-  endfunction
-
-  function! LightlineCocHints() abort
-    return s:lightline_coc_diagnostic('hints', 'hint')
-  endfunction
-  \ }
+  " register compoments:
+  call lightline#coc#register()
 
   " Use auocmd to force lightline update.
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
