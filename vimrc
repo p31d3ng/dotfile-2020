@@ -2,6 +2,7 @@ set hidden
 set nobackup
 set nowritebackup
 syntax enable
+set encoding=utf-8
 
 let mapleader="\<space>"
 
@@ -21,6 +22,8 @@ nnoremap <leader>ev :vs $MYVIMRC<cr><c-w>L
 nnoremap <leader>sv :so $MYVIMRC<cr>
 nnoremap <c-l> A;<esc>
 inoremap <c-l> <esc>A;
+imap jk <Esc>
+nnoremap <space> za
 
 " ================ Indentation ======================
 set autoindent

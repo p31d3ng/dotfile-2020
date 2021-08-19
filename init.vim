@@ -2,6 +2,7 @@ set hidden
 " set termguicolors
 set nobackup
 set nowritebackup
+set encoding=utf-8
 syntax enable
 
 let mapleader=","
@@ -14,12 +15,19 @@ nnoremap <leader>ev :vs $MYVIMRC<cr><c-w>L
 nnoremap <leader>sv :so $MYVIMRC<cr>
 nnoremap <c-l> A;<esc>
 inoremap <c-l> <esc>A;
+imap jk <Esc>
+nnoremap <space> za
 
 " ================ Window Movement ======================
 noremap <C-w><C-h> <C-w>H
 noremap <C-w><C-j> <C-w>J
 noremap <C-w><C-k> <C-w>K
 noremap <C-w><C-l> <C-w>L
+
+" ================ misc. ================================
+" Give more space for displaying messages.
+set cmdheight=2
+set nofoldenable
 
 " ================ Search words ======================
 vnoremap // y/\V<c-r>=escape(@", '/\')<cr><cr>N
@@ -84,6 +92,7 @@ else
   Plug 'junegunn/fzf.vim'
   Plug 'antoinemadec/coc-fzf'
   Plug 'josa42/vim-lightline-coc'
+  Plug 'pedrohdz/vim-yaml-folds'
   call plug#end()
 
   " ================ colorscheme ======================
@@ -106,9 +115,15 @@ else
   " Don't pass messages to |ins-completion-menu|.
   set shortmess+=c
 
-  " Always show the signcolumn, otherwise it would shift the text each time
-  " diagnostics appear/become resolved.
-  set signcolumn=yes
+	" Always show the signcolumn, otherwise it would shift the text each time
+	" diagnostics appear/become resolved.
+	if has("nvim-0.5.0") || has("patch-8.1.1564")
+		" Recently vim can merge signcolumn and number column into one
+		set signcolumn=number
+	else
+		set signcolumn=yes
+	endif
+
   
   " Put coc-references into floating windows
   let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
@@ -126,7 +141,7 @@ else
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
 
-  " Use <c-space> to trigger completion.
+  " Use <g-c> to trigger completion.
   inoremap <silent><expr> gc coc#refresh()
 
   " Use `[g` and `]g` to navigate diagnostics
@@ -165,11 +180,14 @@ else
     \'coc-json',
     \'coc-lists',
     \'coc-markdownlint',
-    \'coc-python',
+    \'coc-prettier',
+    \'coc-pyright',
     \'coc-rust-analyzer',
     \'coc-tsserver',
     \'coc-yaml',
     \'coc-yank',
+    \'coc-pairs',
+    \'coc-go',
   \ ]
   nnoremap <silent> <leader>y  :<c-u>CocList -A --normal yank<cr>
   " Mappings using CoCList:
@@ -229,9 +247,9 @@ else
   autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
   " Toggle vista sidebar
-  nnoremap <silent> <space>v  :<C-u>Vista!!<cr>
+  nnoremap <silent> <leader>v  :<C-u>Vista!!<cr>
   " Toggle vista symbol list
-  nnoremap <silent> <space>l  :<C-u>Vista finder coc<cr>
+  nnoremap <silent> <leader>l  :<C-u>Vista finder coc<cr>
 
 
   " ================ lightline ======================
@@ -243,12 +261,28 @@ else
   \               [ 'coc_error', 'coc_warning', 'coc_hint', 'coc_info', 'coc_status' ] ],
   \     'right': [ [ 'lineinfo' ],
   \                [ 'percent' ],
-  \                [ 'fileformat', 'fileencoding', 'filetype'] ]
+  \                [ 'blame', 'git_status', 'git_changed_lines'] ]
+  \   },
+  \   'component_function': {
+  \     'blame': 'LightlineGitBlame',
+  \     'git_status': 'LightlineGitStatus',
   \   }
   \ }
 
   " register compoments:
   call lightline#coc#register()
+
+  function! LightlineGitBlame() abort
+    let blame = get(b:, 'coc_git_blame', '')
+    " return blame
+    return winwidth(0) > 120 ? blame : ''
+  endfunction
+
+  function! LightlineGitStatus() abort
+    let status = get(g:, 'coc_git_status', '')
+    " return blame
+    return winwidth(0) > 70 ? status : ''
+  endfunction
 
   " Use auocmd to force lightline update.
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
@@ -261,4 +295,9 @@ else
   hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
   hi default CocHighlightText  guibg=#725972 ctermbg=96
   hi CocWarningSign  ctermfg=32 ctermbg=NONE guifg=#0087d7 guibg=NONE
+
+
+  " ================ cursor ======================
+  autocmd InsertEnter * set cul
+  autocmd InsertLeave * set nocul
 endif
