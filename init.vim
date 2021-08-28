@@ -3,6 +3,8 @@ set hidden
 set nobackup
 set nowritebackup
 set encoding=utf-8
+set cursorcolumn
+set cursorline
 syntax enable
 
 let mapleader=","

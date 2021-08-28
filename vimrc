@@ -3,6 +3,8 @@ set nobackup
 set nowritebackup
 syntax enable
 set encoding=utf-8
+set cursorline
+set cursorcolumn
 
 let mapleader="\<space>"
 
