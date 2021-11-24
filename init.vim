@@ -31,6 +31,10 @@ noremap <C-w><C-l> <C-w>L
 set cmdheight=2
 set nofoldenable
 
+" ================ Case ======================
+set ignorecase
+set smartcase
+
 " ================ Search words ======================
 vnoremap // y/\V<c-r>=escape(@", '/\')<cr><cr>N
 nnoremap * *N
@@ -40,11 +44,14 @@ if exists('g:vscode')
   nnoremap <leader>m <Cmd>call VSCodeNotify('workbench.files.action.showActiveFileInExplorer')<CR>
   nnoremap <leader>r <Cmd>call VSCodeNotify('workbench.action.showAllEditorsByMostRecentlyUsed')<CR>
   nnoremap <leader>s <Cmd>call VSCodeNotify('workbench.action.gotoSymbol')<CR>
-  nnoremap <leader>f <Cmd>call VSCodeNotify('omni-search:quick-search')<CR>
+  nnoremap <leader>f <Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>
+  nnoremap <leader>g <Cmd>call VSCodeNotify('workbench.action.findInFiles')<CR>
   nnoremap gy <Cmd>call VSCodeNotify('editor.action.peekTypeDefinition')<CR>
   nnoremap gi <Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>
   nnoremap gr <Cmd>call VSCodeNotify('editor.action.referenceSearch.trigger')<CR>
   nnoremap <C-w><C-w> <Cmd>call VSCodeNotify('workbench.action.focusNextGroup')<CR>
+  nnoremap <silent> u :<C-u>call VSCodeNotify('undo')<CR>
+  nnoremap <silent> <C-r> :<C-u>call VSCodeNotify('redo')<CR>
 else
 
   " ================ Clipboard ======================
@@ -70,10 +77,6 @@ else
   set softtabstop=2
   set tabstop=2
   set expandtab
-
-  " ================ Case ======================
-  set ignorecase
-  set smartcase
 
   " ================ Number Col ======================
   set number
@@ -231,6 +234,18 @@ else
     let @@ = saved_unnamed_register
     execute 'CocList grep '.word
   endfunction
+
+    " grep word under cursor
+  command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
+
+  function! s:GrepArgs(...)
+    let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
+          \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
+    return join(list, "\n")
+  endfunction
+
+  " Keymapping for grep word under cursor with interactive mode
+  nnoremap <silent> <leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
 
   " ================ Vista ======================
   let g:vista#renderer#enable_icon = 0
