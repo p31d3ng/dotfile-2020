@@ -1,0 +1,26 @@
+window:
+  dynamic_title: true
+  dimensions:
+    columns: 0
+    lines: 0
+  padding:
+    x: 2
+    y: 2
+
+  position:
+    x: 100
+    y: 20
+
+  dynamic_padding: true
+  decorations: none
+
+shell:
+  program: /bin/zsh
+  args:
+    - -l
+    - -c
+    - "tmux attach -t dev || tmux new -s dev"
+
+font:
+  size: 14
+  use_thin_strokes: true
