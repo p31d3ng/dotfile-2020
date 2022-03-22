@@ -21,6 +21,14 @@ shell:
     - -c
     - "tmux attach -t dev || tmux new -s dev"
 
+mouse:
+  hints:
+    launcher:
+      # This depends on your OS, on Mac it’s `open`
+      program: open
+    # to escape from tmux, you'll need to press Shift as well
+    modifiers: Command
+
 font:
   normal:
     family: Monaco
